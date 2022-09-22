@@ -1,0 +1,75 @@
+#!/usr/bin/make -f
+
+# generate documentation unless nodoc requested
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+DOCS = README.html README.txt SPECS.html SPECS.txt
+endif
+
+COPYRIGHT = 2018-2020, Andrea Giammarchi
+
+# GNU LibreJS 5.0 compatible license string
+# * See <https://www.gnu.org/software/librejs/free-your-javascript.html>
+LICENSE = magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.txt ISC
+
+%:
+	dh $@
+
+# pre-compress for browser use
+%.gz: %
+	pigz --force --keep -11 -- $<
+	brotli --force --keep --best --suffix=.brotli -- $<
+
+%.html: %.md
+	pandoc --from gfm-raw_html --to html --standalone --output $@ $<
+
+%.txt: %.md
+	pandoc --from gfm-raw_html --to plain --output $@ $<
+
+# optimize JavaScript for browser use
+# * include source-map
+debian/js/%.min.js:
+	$(if $<,,$(error source missing for browser library of $*))
+	mkdir --parents $(dir $@)
+	$(strip terser --compress --mangle \
+		--source-map "base='$(abspath $(dir $@))',url='$(notdir $@).map'" \
+		--output $@ \
+		-- $<)
+	mv -f $@ $@~
+	$(if $(COPYRIGHT),echo '// @copyright $(COPYRIGHT)' >> $@)
+	$(if $(LICENSE),echo '// @license $(LICENSE)' >> $@)
+	cat $@~ >> $@
+	$(if $(LICENSE),echo '// @license-end' >> $@)
+	rm -f $@~
+
+cjs/index.js: esm/index.js
+	mkdir --parents $(dir $@)
+	ascjs esm cjs
+
+es.js: esm/index.js
+	rollup --config rollup/es.config.js
+	sed -i -e 's/^var /self./' es.js
+
+index.js: esm/index.js
+	rollup --config rollup/babel.config.js
+	sed -i -e 's/^var /self./' index.js
+
+debian/js/flatted.min.js: index.js
+debian/js/flatted.js: index.js
+	mkdir --parents $(dir $@)
+	echo '// @license $(LICENSE)' >> $@
+	cat $< >> $@
+	echo '// @license-end' >> $@
+
+override_dh_clean:
+	dh_clean -- $(DOCS)
+
+override_dh_auto_build: $(DOCS) \
+ cjs/index.js esm/index.js debian/js/flatted.js debian/js/flatted.min.js.gz
+
+override_dh_auto_test:
+	node test/index.js
+
+override_dh_installdocs:
+	dh_installdocs --all -- $(DOCS)
+
+.SECONDARY:

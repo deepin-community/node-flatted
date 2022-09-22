@@ -1,0 +1,13 @@
+Description: modernize rollup plugin babel
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2021-11-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/rollup/babel.config.js
++++ b/rollup/babel.config.js
+@@ -1,4 +1,4 @@
+-import babel from 'rollup-plugin-babel';
++import babel from '@rollup/plugin-babel';
+ 
+ export default {
+   input: './esm/index.js',

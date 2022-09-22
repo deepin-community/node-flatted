@@ -1,0 +1,111 @@
+node-flatted (3.2.2~ds-3) unstable; urgency=medium
+
+  * Team upload
+  * Fix autopkgtest (Closes: #999800)
+
+ -- Yadd <yadd@debian.org>  Tue, 16 Nov 2021 23:34:54 +0100
+
+node-flatted (3.2.2~ds-2) unstable; urgency=medium
+
+  * call executable terser (not uglifyjs.terser),
+    and build-depend on terser (not uglifyjs.terser)
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 07 Nov 2021 21:38:59 +0100
+
+node-flatted (3.2.2~ds-1) unstable; urgency=medium
+
+  [ upstream ]
+  * new release(s)
+
+  [ Jonas Smedegaard ]
+  * update copyright info: update coverage
+  * update patch 2001
+  * check tests without coverage;
+    build-depend on nodejs (not node-instanbul)
+  * add patch 2002 to avoid NodeJS module drop-babel-typeof
+  * add patch 2003 to modernize rollup plugin babel
+  * update build routines;
+    build-depend on node-ascjs node-babel-core node-babel-preset-env
+    node-rollup-plugin-babel rollup uglifyjs.terser
+    (not uglifyjs)
+  * update autopkgtest
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 05 Nov 2021 13:29:46 +0100
+
+node-flatted (2.0.2~dfsg-4) unstable; urgency=medium
+
+  * fix have autopkgtest depend on nodejs
+
+ -- Jonas Smedegaard <dr@jones.dk>  Fri, 24 Sep 2021 02:15:49 +0200
+
+node-flatted (2.0.2~dfsg-3) unstable; urgency=medium
+
+  * update git-buildpackage config:
+    + use DEP-14 branches debian/latest upstream/latest
+    + add usage comment
+  * update copyright info:
+    + exclude another minified file when repackaging upstream source
+    + update coverage
+    + use Reference field (not License-Reference);
+      tighten lintian overrides
+  * watch: use repackaging suffix ~ds (not ~dfsg)
+  * simplify source script copyright-chceck
+  * use brotli compression suffix .brotli
+    (not .br used for language breton)
+  * declare compliance with Debian Policy 4.6.0
+  * use debhelper compatibility level 13 (not 12)
+  * stop depend on nodejs: not called explicitly during build
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 23 Sep 2021 14:34:57 +0200
+
+node-flatted (2.0.2~dfsg-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Apply multi-arch hints. + libjs-flatted, node-flatted: Add Multi-Arch: foreign.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository, Repository-Browse.
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Sat, 28 Aug 2021 23:18:18 +0100
+
+node-flatted (2.0.2~dfsg-1) unstable; urgency=medium
+
+  [ upstream ]
+  * new release
+
+  [ Jonas Smedegaard ]
+  * use debhelper compatibility level 12 (not 9);
+    build-depend on debhelper-compat (not debhelper)
+  * copyright: update coverage
+  * declare compliance with Debian Policy 4.5.0
+  * unfuzz patch
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 23 Apr 2020 02:26:56 +0200
+
+node-flatted (2.0.1~dfsg-4) unstable; urgency=medium
+
+  * fix typo in previous changelog entry
+  * mention bug number in lintian override
+  * fix clean generated docs
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 30 Nov 2019 11:16:02 +0100
+
+node-flatted (2.0.1~dfsg-3) unstable; urgency=medium
+
+  * Fix include unminified browser library.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 17 Oct 2019 21:57:56 +0200
+
+node-flatted (2.0.1~dfsg-2) unstable; urgency=medium
+
+  * Add (superficial) autopkgtest.
+  * Use debhelper compatibility level 10,
+    and override lintian about unversioned dependency.
+  * Fix install path.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 17 Oct 2019 21:40:20 +0200
+
+node-flatted (2.0.1~dfsg-1) unstable; urgency=low
+
+  * Initial release.
+    Closes: Bug#942458.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Wed, 16 Oct 2019 21:15:16 +0200

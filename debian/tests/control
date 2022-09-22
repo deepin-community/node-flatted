@@ -1,0 +1,15 @@
+Test-Command: cd / && node -e "require('flatted');"
+Depends:
+ node-flatted,
+ nodejs,
+Restrictions: superficial
+
+Test-Command: cd / && node -e "
+ global.window = require('domino').createWindow();
+ self = global.window;
+ require('/usr/share/javascript/flatted/flatted.min')"
+Depends:
+ libjs-flatted,
+ node-domino,
+ nodejs,
+Restrictions: superficial

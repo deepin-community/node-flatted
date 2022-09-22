@@ -1,0 +1,58 @@
+Source: node-flatted
+Section: javascript
+Priority: optional
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders:
+ Jonas Smedegaard <dr@jones.dk>,
+Build-Depends:
+ brotli,
+ debhelper-compat (= 13),
+ node-ascjs,
+ node-babel-core (>= 7),
+ node-babel-preset-env (>= 7),
+ node-rollup-plugin-babel (>= 5.2),
+ node-tap <!nocheck>,
+ node-typescript <!nocheck>,
+ nodejs <!nocheck>,
+ pandoc <!nodoc>,
+ pigz,
+ rollup,
+ terser,
+Standards-Version: 4.6.0
+Homepage: https://github.com/WebReflection/flatted
+Vcs-Browser: https://salsa.debian.org/js-team/node-flatted
+Vcs-Git: https://salsa.debian.org/js-team/node-flatted.git
+Rules-Requires-Root: no
+
+Package: node-flatted
+Architecture: all
+Depends:
+ ${misc:Depends},
+Multi-Arch: foreign
+Description: super light and fast circular JSON parser - Node library
+ Flatted is a super light and fast circular JSON parser.
+ .
+ Works with all ECMAScript engines
+ compatible with Map, Set, Object.keys, and Array.prototype.reduce,
+ even if polyfilled.
+ .
+ Flatted is the direct successor of no longer maintained CircularJSON.
+ .
+ This package contains flatted usable with Nodejs.
+
+Package: libjs-flatted
+Architecture: all
+Depends:
+ nodejs,
+ ${misc:Depends},
+Multi-Arch: foreign
+Description: super light and fast circular JSON parser - browser library
+ Flatted is a super light and fast circular JSON parser.
+ .
+ Works with all ECMAScript engines
+ compatible with Map, Set, Object.keys, and Array.prototype.reduce,
+ even if polyfilled.
+ .
+ Flatted is the direct successor of no longer maintained CircularJSON.
+ .
+ This package contains flatted directly usable in web browsers.

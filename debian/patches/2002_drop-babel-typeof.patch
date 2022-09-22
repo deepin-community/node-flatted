@@ -1,0 +1,16 @@
+Description: avoid NodeJS module drop-babel-typeof
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2021-11-05
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/rollup/babel.config.js
++++ b/rollup/babel.config.js
+@@ -3,7 +3,7 @@
+ export default {
+   input: './esm/index.js',
+   plugins: [
+-    babel({presets: ['@babel/preset-env']})
++    babel({presets: ['@babel/preset-env', {"exclude": "transform-typeof-symbol"}]})
+   ],
+   output: {
+     esModule: false,
