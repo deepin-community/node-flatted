@@ -7,6 +7,7 @@ Source: https://github.com/WebReflection/flatted
 Files-Excluded:
  cjs/*
  es.js
+ esm.js
  index.js
  min.js
 
@@ -29,7 +30,7 @@ Comment:
 Files:
  debian/*
 Copyright:
-  2019-2021  Jonas Smedegaard <dr@jones.dk>
+  2019-2022  Jonas Smedegaard <dr@jones.dk>
 License-Grant:
  This packaging is free software;
  you can redistribute it and/or modify it

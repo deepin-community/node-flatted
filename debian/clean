@@ -1,4 +1,7 @@
 cjs/
 coverage/
 debian/js/
+es.js
+esm.js
 index.js
+node_modules/

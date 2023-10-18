@@ -6,6 +6,7 @@ Uploaders:
  Jonas Smedegaard <dr@jones.dk>,
 Build-Depends:
  brotli,
+ cmark-gfm <!nodoc>,
  debhelper-compat (= 13),
  node-ascjs,
  node-babel-core (>= 7),
@@ -14,11 +15,10 @@ Build-Depends:
  node-tap <!nocheck>,
  node-typescript <!nocheck>,
  nodejs <!nocheck>,
- pandoc <!nodoc>,
  pigz,
  rollup,
  terser,
-Standards-Version: 4.6.0
+Standards-Version: 4.6.1
 Homepage: https://github.com/WebReflection/flatted
 Vcs-Browser: https://salsa.debian.org/js-team/node-flatted
 Vcs-Git: https://salsa.debian.org/js-team/node-flatted.git
