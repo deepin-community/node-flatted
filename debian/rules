@@ -20,13 +20,15 @@ LICENSE = magnet:?xt=urn:btih:b8999bbaf509c08d127678643c515b9ab0836bae&dn=ISC.tx
 	brotli --force --keep --best --suffix=.brotli -- $<
 
 %.html: %.md
-	pandoc --from gfm-raw_html --to html --standalone --output $@ $<
+	cmark-gfm $< > $@
 
 %.txt: %.md
-	pandoc --from gfm-raw_html --to plain --output $@ $<
+	cmark-gfm --to plaintext $< > $@
 
 # optimize JavaScript for browser use
 # * include source-map
+debian/js/es.min.js debian/js/esm.min.js: debian/js/%.min.js: %.js
+debian/js/flatted.min.js: index.js
 debian/js/%.min.js:
 	$(if $<,,$(error source missing for browser library of $*))
 	mkdir --parents $(dir $@)
@@ -49,12 +51,17 @@ es.js: esm/index.js
 	rollup --config rollup/es.config.js
 	sed -i -e 's/^var /self./' es.js
 
+esm.js: esm/index.js
+	rollup --config rollup/esm.config.js
+
 index.js: esm/index.js
 	rollup --config rollup/babel.config.js
 	sed -i -e 's/^var /self./' index.js
 
-debian/js/flatted.min.js: index.js
+debian/js/es.js debian/js/esm.js: debian/js/%.js: %.js
 debian/js/flatted.js: index.js
+debian/js/%.js:
+	$(if $<,,$(error source missing for browser library of $*))
 	mkdir --parents $(dir $@)
 	echo '// @license $(LICENSE)' >> $@
 	cat $< >> $@
@@ -63,8 +70,15 @@ debian/js/flatted.js: index.js
 override_dh_clean:
 	dh_clean -- $(DOCS)
 
+override_dh_auto_configure:
+	mkdir -p node_modules/@rollup
+	ln -s /usr/share/nodejs/@rollup/plugin-babel node_modules/@rollup/
+	ln -s /usr/share/nodejs/rollup-plugin-terser node_modules/
+
 override_dh_auto_build: $(DOCS) \
- cjs/index.js esm/index.js debian/js/flatted.js debian/js/flatted.min.js.gz
+ cjs/index.js esm/index.js \
+ $(patsubst %,debian/js/%.js,es esm flatted) \
+ $(patsubst %,debian/js/%.min.js.gz,es esm flatted)
 
 override_dh_auto_test:
 	node test/index.js
