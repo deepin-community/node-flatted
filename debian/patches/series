@@ -1,3 +1,4 @@
 2001_privacy.patch
 2002_drop-babel-typeof.patch
 2003_rollup-babel.patch
+CVE-2026-33228.patch

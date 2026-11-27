@@ -1,3 +1,11 @@
+node-flatted (3.2.7~ds-1+deb13u1) trixie; urgency=medium
+
+  * Team upload
+  * Add patch for CVE-2026-33228 (prototype pollution in parse)
+    (Closes: #1131462)
+
+ -- Yadd <yadd@debian.org>  Sun, 22 Mar 2026 07:13:05 +0100
+
 node-flatted (3.2.7~ds-1) unstable; urgency=medium
 
   * Team upload
